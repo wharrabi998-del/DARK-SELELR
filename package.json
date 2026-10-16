@@ -1,0 +1,19 @@
+{
+  "name": "dark-reseller",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DARK RESELLER iOS and Android application",
+  "scripts": {
+    "build": "echo 'DARK RESELLER web app ready'",
+    "cap:init": "cap init",
+    "cap:add:ios": "cap add ios",
+    "cap:add:android": "cap add android",
+    "cap:sync": "cap sync"
+  },
+  "dependencies": {
+    "@capacitor/core": "^7.4.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.3"
+  }
+}
