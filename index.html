@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f1e9">
+<title>DARK RESELLER</title>
+
+<style>
+:root {
+  --bg: #f4f1e9;
+  --card: rgba(255,255,255,.82);
+  --ink: #29271f;
+  --muted: #898476;
+  --gold: #b28a3e;
+  --gold-light: #e3c77e;
+  --line: rgba(90,77,48,.13);
+  --green: #3c8b67;
+  --red: #b74d4d;
+  --shadow: 0 16px 45px rgba(58,49,29,.09);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+               "Segoe UI", sans-serif;
+  color: var(--ink);
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 85% 0%, #fff8e5 0, transparent 34%),
+    linear-gradient(145deg, #f7f5ef, #ece9e0);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+}
+
+.screen {
+  display: none;
+  min-height: 100dvh;
+  padding: 25px 20px 35px;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 35px;
+}
+
+.brand-mark {
+  width: 47px;
+  height: 47px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+  background: linear-gradient(145deg, #e8d5a0, #a77d30);
+  box-shadow: 0 8px 22px #b28a3e35;
+}
+
+.brand-title {
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 2.3px;
+}
+
+.brand-sub {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.title {
+  font-size: 34px;
+  line-height: 1.08;
+  letter-spacing: -1px;
+  margin: 10px 0;
+  font-weight: 850;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 25px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.field {
+  margin: 15px 0;
+}
+
+.field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  color: #777163;
+  margin: 0 0 8px 3px;
+  letter-spacing: .5px;
+}
+
+.field input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: rgba(255,255,255,.85);
+  outline: none;
+  color: var(--ink);
+}
+
+.field input:focus {
+  border-color: #c9a85e;
+  box-shadow: 0 0 0 3px #c9a85e20;
+}
+
+.btn {
+  width: 100%;
+  padding: 15px 18px;
+  border-radius: 15px;
+  font-weight: 800;
+}
+
+.btn-gold {
+  background: linear-gradient(115deg, #d7bd79, #b58b3f);
+  color: white;
+  box-shadow: 0 8px 20px #b28a3e2b;
+}
+
+.btn-soft {
+  background: white;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.text-btn {
+  background: none;
+  color: var(--gold);
+  font-weight: 800;
+  padding: 12px 4px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.footnote {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+.notice {
+  padding: 12px 14px;
+  border-radius: 13px;
+  background: #f7f0dc;
+  color: #8a6a26;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 14px 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.message {
+  font-size: 12px;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.message.error {
+  color: var(--red);
+}
+
+.message.ok {
+  color: var(--green);
+}
+
+.mini {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* APP HOME */
+
+.app-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2px 0 25px;
+}
+
+.small-brand {
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #e8d5a0, #a77d30);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+
+.hero {
+  padding: 23px;
+  border-radius: 26px;
+  background: linear-gradient(130deg, #28271f, #4b4331);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  border: 1px solid #ffffff20;
+  border-radius: 50%;
+  right: -70px;
+  top: -90px;
+  box-shadow: 0 0 0 22px #ffffff08, 0 0 0 48px #ffffff05;
+  pointer-events: none;
+}
+
+.hero .label {
+  font-size: 11px;
+  color: #d4c7a6;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.balance {
+  font-size: 35px;
+  font-weight: 850;
+  margin: 9px 0 18px;
+}
+
+.pill {
+  display: inline-flex;
+  padding: 7px 10px;
+  border-radius: 30px;
+  background: #ffffff15;
+  color: #e5d5a9;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.section-title {
+  font-size: 17px;
+  font-weight: 850;
+  margin: 25px 0 13px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat {
+  background: var(--card);
+  border: 1px solid white;
+  border-radius: 20px;
+  padding: 17px;
+  box-shadow: 0 8px 25px #39301a08;
+}
+
+.stat small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 23px;
+  margin-top: 8px;
+}
+
+.tile-list {
+  display: grid;
+  gap: 10px;
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: var(--card);
+  border: 1px solid white;
+  border-radius: 18px;
+  padding: 15px;
+  text-align: left;
+  color: var(--ink);
+  box-shadow: 0 7px 22px #39301a08;
+}
+
+.tile-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #f3ead4;
+  color: #9b762f;
+  font-size: 19px;
+}
+
+.tile strong {
+  display: block;
+  font-size: 13px;
+}
+
+.tile small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.tile .arrow {
+  margin-left: auto;
+  color: #a89c80;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.topline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 5px 0 24px;
+}
+
+.back {
+  background: white;
+  border: 1px solid var(--line);
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  font-size: 18px;
+}
+
+.item-card {
+  background: var(--card);
+  border: 1px solid white;
+  border-radius: 19px;
+  padding: 16px;
+  margin: 10px 0;
+}
+
+.item-card h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+.item-card p {
+  margin: 0 0 7px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.empty {
+  padding: 30px 12px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.admin-box {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 15px;
+  text-align: left;
+  color: var(--ink);
+}
+
+.admin-box b {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.admin-box small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.bottom-nav {
+  position: sticky;
+  bottom: 0;
+  margin: 24px -20px -35px;
+  padding: 13px 10px calc(13px + env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: space-around;
+  background: #f7f5efed;
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--line);
+}
+
+.nav-item {
+  background: none;
+  color: #999282;
+  font-size: 10px;
+  font-weight: 750;
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+  padding: 4px 12px;
+}
+
+.nav-item span {
+  font-size: 19px;
+}
+
+.nav-item.active {
+  color: var(--gold);
+}
+
+@media (min-width: 600px) {
+  .screen {
+    max-width: 480px;
+    margin: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<section id="loginScreen" class="screen active">
+  <div class="brand">
+    <div class="brand-mark">D</div>
+    <div>
+      <div class="brand-title">DARK RESELLER</div>
+      <div class="brand-sub">DISTRIBUTOR MANAGEMENT</div>
+    </div>
+  </div>
+
+  <div class="eyebrow">YOUR BUSINESS, IN CONTROL</div>
+  <h1 class="title">Welcome<br>back.</h1>
+  <p class="subtitle">
+    Sign in to manage your reseller account, products and orders.
+  </p>
+
+  <div class="panel">
+    <form id="loginForm">
+      <div class="field">
+        <label for="loginUser">USERNAME</label>
+        <input id="loginUser" autocomplete="username"
+               placeholder="Enter your username" required>
+      </div>
+
+      <div class="field">
+        <label for="loginPass">PASSWORD</label>
+        <input id="loginPass" type="password"
+               autocomplete="current-password"
+               placeholder="Enter your password" required>
+      </div>
+
+      <button class="btn btn-gold" type="submit">Sign In ↗</button>
+      <div id="loginMsg" class="message"></div>
+    </form>
+
+    <div class="row" style="margin-top:14px">
+      <span class="mini">New to DARK RESELLER?</span>
+      <button class="text-btn" id="goSignup" type="button">
+        Create account
+      </button>
+    </div>
+  </div>
+
+  <p class="footnote">
+    New distributor accounts require owner approval.
+  </p>
+</section>
+
+<!-- SIGNUP -->
+<section id="signupScreen" class="screen">
+  <div class="brand">
+    <div class="brand-mark">D</div>
+    <div>
+      <div class="brand-title">DARK RESELLER</div>
+      <div class="brand-sub">NEW DISTRIBUTOR</div>
+    </div>
+  </div>
+
+  <div class="eyebrow">JOIN THE NETWORK</div>
+  <h1 class="title">Create your<br>account.</h1>
+  <p class="subtitle">
+    Submit your details. The owner must approve your account.
+  </p>
+
+  <div class="panel">
+    <form id="signupForm">
+      <div class="field">
+        <label for="newUser">USERNAME</label>
+        <input id="newUser" minlength="4" maxlength="24"
+               autocomplete="username"
+               placeholder="At least 4 characters" required>
+      </div>
+
+      <div class="field">
+        <label for="newPass">PASSWORD</label>
+        <input id="newPass" type="password" minlength="6"
+               autocomplete="new-password"
+               placeholder="At least 6 characters" required>
+      </div>
+
+      <div class="field">
+        <label for="confirmPass">CONFIRM PASSWORD</label>
+        <input id="confirmPass" type="password" minlength="6"
+               autocomplete="new-password"
+               placeholder="Repeat password" required>
+      </div>
+
+      <button class="btn btn-gold" type="submit">
+        Submit for approval
+      </button>
+      <div id="signupMsg" class="message"></div>
+    </form>
+
+    <div class="row" style="margin-top:12px">
+      <span class="mini">Already registered?</span>
+      <button class="text-btn" id="goLogin" type="button">
+        Sign in
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- WAITING FOR APPROVAL -->
+<section id="pendingScreen" class="screen">
+  <div class="brand">
+    <div class="brand-mark">D</div>
+    <div>
+      <div class="brand-title">DARK RESELLER</div>
+      <div class="brand-sub">ACCOUNT STATUS</div>
+    </div>
+  </div>
+
+  <div class="panel" style="text-align:center;margin-top:30px">
+    <div style="font-size:48px">◷</div>
+    <div class="eyebrow" style="margin-top:14px">PENDING APPROVAL</div>
+    <h1 class="title" style="font-size:28px">Request submitted</h1>
+    <p class="subtitle">
+      Your account is waiting for approval. You can sign in once it has
+      been approved.
+    </p>
+    <button id="pendingBack" class="btn btn-soft">
+      Back to sign in
+    </button>
+  </div>
+</section>
+
+<!-- MAIN APP -->
+<section id="appScreen" class="screen">
+  <div class="app-head">
+    <div>
+      <div class="small-brand">DARK <span style="color:var(--gold)">RESELLER</span></div>
+      <div id="roleLine" class="mini" style="margin-top:5px">
+        DISTRIBUTOR WORKSPACE
+      </div>
+    </div>
+    <div id="avatar" class="avatar">D</div>
+  </div>
+
+  <!-- HOME -->
+  <div id="homePage" class="page active">
+    <div class="hero">
+      <div class="label">Available balance</div>
+      <div id="balanceValue" class="balance">$0.00</div>
+      <div class="row">
+        <span id="heroUsername" class="pill">DISTRIBUTOR</span>
+        <span class="pill">ACCOUNT ACTIVE</span>
+      </div>
+    </div>
+
+    <div class="section-title">Overview</div>
+    <div class="stats">
+      <div class="stat">
+        <small>Total orders</small>
+        <strong id="ordersCount">0</strong>
+      </div>
+      <div class="stat">
+        <small>Keys received</small>
+        <strong id="keysCount">0</strong>
+      </div>
+    </div>
+
+    <div class="section-title">Quick access</div>
+    <div class="tile-list">
+      <button class="tile" data-page="productsPage">
+        <div class="tile-icon">◇</div>
+        <div>
+          <strong>Browse products</strong>
+          <small>View products and prices</small>
+        </div>
+        <span class="arrow">›</span>
+      </button>
+
+      <button class="tile" data-page="ordersPage">
+        <div class="tile-icon">▤</div>
+        <div>
+          <strong>Order history</strong>
+          <small>Review your purchases</small>
+        </div>
+        <span class="arrow">›</span>
+      </button>
+
+      <button id="adminShortcut" class="tile hidden" data-page="adminPage">
+        <div class="tile-icon">♙</div>
+        <div>
+          <strong>Owner control center</strong>
+          <small>Review signup requests</small>
+        </div>
+        <span class="arrow">›</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div id="productsPage" class="page">
+    <div class="topline">
+      <button class="back" data-page="homePage">‹</button>
+      <div>
+        <div class="eyebrow">CATALOGUE</div>
+        <h1 class="title" style="font-size:28px;margin:5px 0">Products</h1>
+      </div>
+    </div>
+    <div class="empty">No products have been added yet.</div>
+  </div>
+
+  <!-- ORDERS -->
+  <div id="ordersPage" class="page">
+    <div class="topline">
+      <button class="back" data-page="homePage">‹</button>
+      <div>
+        <div class="eyebrow">YOUR ACTIVITY</div>
+        <h1 class="title" style="font-size:28px;margin:5px 0">Orders</h1>
+      </div>
+    </div>
+    <div class="empty">You have no orders yet.</div>
+  </div>
+
+  <!-- PROFILE -->
+  <div id="profilePage" class="page">
+    <div class="topline">
+      <button class="back" data-page="homePage">‹</button>
+      <div>
+        <div class="eyebrow">ACCOUNT</div>
+        <h1 class="title" style="font-size:28px;margin:5px 0">Profile</h1>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <p>USERNAME</p>
+      <h3 id="profileUser">—</h3>
+    </div>
+
+    <div class="item-card">
+      <p>ACCOUNT ROLE</p>
+      <h3 id="profileRole">—</h3>
+    </div>
+
+    <button id="logoutBtn" class="btn btn-soft" style="margin-top:14px">
+      Sign out
+    </button>
+
+    <p class="mini" style="text-align:center;margin-top:12px">
+      Signing out clears the saved session on this device.
+    </p>
+  </div>
+
+  <!-- OWNER PANEL -->
+  <div id="adminPage" class="page">
+    <div class="topline">
+      <button class="back" data-page="homePage">‹</button>
+      <div>
+        <div class="eyebrow">OWNER ONLY</div>
+        <h1 class="title" style="font-size:28px;margin:5px 0">
+          Control center
+        </h1>
+      </div>
+    </div>
+
+    <div class="notice">
+      Demo mode: this panel is not secure. Real account management needs
+      a server and database.
+    </div>
+
+    <div class="admin-grid">
+      <button class="admin-box" id="pendingUsersBtn">
+        <b>Signup requests</b>
+        <small>Review pending accounts</small>
+      </button>
+
+      <button class="admin-box" id="createUserBtn">
+        <b>Create distributor</b>
+        <small>Manual account creation</small>
+      </button>
+
+      <button class="admin-box" id="manageProductsBtn">
+        <b>Products</b>
+        <small>Catalog and pricing</small>
+      </button>
+
+      <button class="admin-box" id="manageBalanceBtn">
+        <b>Balances</b>
+        <small>Distributor balances</small>
+      </button>
+    </div>
+
+    <div id="adminDetails" class="item-card hidden"></div>
+  </div>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-page="homePage">
+      <span>⌂</span>Home
+    </button>
+    <button class="nav-item" data-page="productsPage">
+      <span>◇</span>Products
+    </button>
+    <button class="nav-item" data-page="ordersPage">
+      <span>▤</span>Orders
+    </button>
+    <button class="nav-item" data-page="profilePage">
+      <span>◉</span>Profile
+    </button>
+  </nav>
+</section>
+
+<script>
+/*
+  DEMO ONLY — NOT PRODUCTION SECURITY.
+
+  Owner credentials are visible in this frontend source.
+  User records and sessions are stored on this device.
+  A real deployment needs server-side authentication, secure password
+  hashing, database-backed approvals, and server-side authorization.
+*/
+
+const OWNER_USERNAME = "WALADARK";
+const OWNER_PASSWORD = "DARKWALA";
+
+const USERS_KEY = "dark_reseller_demo_users";
+const SESSION_KEY = "dark_reseller_demo_session";
+
+const $ = id => document.getElementById(id);
+
+const screens = [
+  "loginScreen",
+  "signupScreen",
+  "pendingScreen",
+  "appScreen"
+];
+
+function getUsers() {
+  try {
+    return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function saveUsers(users) {
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
+
+function showScreen(id) {
+  screens.forEach(screen => {
+    $(screen).classList.toggle("active", screen === id);
+  });
+}
+
+function showMessage(id, text, type = "") {
+  const el = $(id);
+  el.textContent = text;
+  el.className = "message " + type;
+}
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === id);
+  });
+
+  document.querySelectorAll(".nav-item").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === id);
+  });
+}
+
+function enterApp(username, role) {
+  const session = {
+    username: username,
+    role: role
+  };
+
+  /*
+    localStorage persists across app restarts on the same device.
+    This is a convenience feature, not a secure authentication system.
+  */
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+
+  $("heroUsername").textContent = username.toUpperCase();
+  $("avatar").textContent = username.charAt(0).toUpperCase();
+  $("profileUser").textContent = username;
+  $("profileRole").textContent = role === "owner" ? "Owner" : "Distributor";
+
+  $("roleLine").textContent =
+    role === "owner" ? "OWNER WORKSPACE" : "DISTRIBUTOR WORKSPACE";
+
+  $("adminShortcut").classList.toggle("hidden", role !== "owner");
+
+  showPage("homePage");
+  showScreen("appScreen");
+}
+
+function signOut() {
+  localStorage.removeItem(SESSION_KEY);
+  showScreen("loginScreen");
+}
+
+$("goSignup").addEventListener("click", () => {
+  showScreen("signupScreen");
+});
+
+$("goLogin").addEventListener("click", () => {
+  showScreen("loginScreen");
+});
+
+$("pendingBack").addEventListener("click", () => {
+  showScreen("loginScreen");
+});
+
+document.querySelectorAll("[data-page]").forEach(button => {
+  button.addEventListener("click", () => {
+    showPage(button.dataset.page);
+  });
+});
+
+/* LOGIN */
+$("loginForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const username = $("loginUser").value.trim();
+  const password = $("loginPass").value;
+
+  if (
+    username.toLowerCase() === OWNER_USERNAME.toLowerCase() &&
+    password === OWNER_PASSWORD
+  ) {
+    showMessage("loginMsg", "Welcome, owner.", "ok");
+    enterApp(OWNER_USERNAME, "owner");
+    return;
+  }
+
+  const user = getUsers().find(item =>
+    item.username.toLowerCase() === username.toLowerCase()
+  );
+
+  if (!user || user.password !== password) {
+    showMessage("loginMsg", "Incorrect username or password.", "error");
+    return;
+  }
+
+  if (user.status !== "approved") {
+    showScreen("pendingScreen");
+    return;
+  }
+
+  enterApp(user.username, "distributor");
+});
+
+/* SIGNUP */
+$("signupForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const username = $("newUser").value.trim();
+  const password = $("newPass").value;
+  const confirm = $("confirmPass").value;
+
+  if (username.length < 4) {
+    showMessage(
+      "signupMsg",
+      "Username must contain at least 4 characters.",
+      "error"
+    );
+    return;
+  }
+
+  if (password.length < 6) {
+    showMessage(
+      "signupMsg",
+      "Password must contain at least 6 characters.",
+      "error"
+    );
+    return;
+  }
+
+  if (password !== confirm) {
+    showMessage("signupMsg", "Passwords do not match.", "error");
+    return;
+  }
+
+  if (username.toLowerCase() === OWNER_USERNAME.toLowerCase()) {
+    showMessage("signupMsg", "This username is reserved.", "error");
+    return;
+  }
+
+  const users = getUsers();
+
+  if (users.some(user =>
+    user.username.toLowerCase() === username.toLowerCase()
+  )) {
+    showMessage("signupMsg", "This username is already in use.", "error");
+    return;
+  }
+
+  users.push({
+    username: username,
+    password: password,
+    status: "pending"
+  });
+
+  saveUsers(users);
+  $("signupForm").reset();
+  showScreen("pendingScreen");
+});
+
+/* SIGN OUT */
+$("logoutBtn").addEventListener("click", signOut);
+
+/* OWNER: APPROVE SIGNUP REQUESTS */
+$("pendingUsersBtn").addEventListener("click", () => {
+  const box = $("adminDetails");
+  box.classList.remove("hidden");
+
+  const pendingUsers = getUsers().filter(user =>
+    user.status === "pending"
+  );
+
+  box.replaceChildren();
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Pending signup requests";
+  box.appendChild(heading);
+
+  if (pendingUsers.length === 0) {
+    const empty = document.createElement("p");
+    empty.textContent = "No pending requests.";
+    box.appendChild(empty);
+    return;
+  }
+
+  pendingUsers.forEach(user => {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.style.padding = "10px 0";
+    row.style.borderBottom = "1px solid var(--line)";
+
+    const name = document.createElement("strong");
+    name.textContent = user.username;
+
+    const approve = document.createElement("button");
+    approve.className = "btn btn-gold";
+    approve.style.width = "auto";
+    approve.style.padding = "9px 12px";
+    approve.textContent = "Approve";
+
+    approve.addEventListener("click", () => {
+      const users = getUsers();
+      const target = users.find(item => item.username === user.username);
+
+      if (target) {
+        target.status = "approved";
+        saveUsers(users);
+      }
+
+      $("pendingUsersBtn").click();
+    });
+
+    row.append(name, approve);
+    box.appendChild(row);
+  });
+});
+
+/* OTHER OWNER OPTIONS — PLACEHOLDERS */
+function showAdminMessage(message) {
+  const box = $("adminDetails");
+  box.classList.remove("hidden");
+  box.replaceChildren();
+
+  const text = document.createElement("p");
+  text.textContent = message;
+  box.appendChild(text);
+}
+
+$("createUserBtn").addEventListener("click", () => {
+  showAdminMessage(
+    "Manual account creation is not implemented in this demo."
+  );
+});
+
+$("manageProductsBtn").addEventListener("click", () => {
+  showAdminMessage(
+    "Product management is not connected yet."
+  );
+});
+
+$("manageBalanceBtn").addEventListener("click", () => {
+  showAdminMessage(
+    "Balance management is not connected yet."
+  );
+});
+
+/* RESTORE SESSION WHEN APP REOPENS */
+try {
+  const saved = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+
+  if (saved && saved.username && saved.role) {
+    /*
+      Convenience only. A production app must validate the session
+      with a server instead of trusting localStorage.
+    */
+    enterApp(saved.username, saved.role);
+  }
+} catch {
+  localStorage.removeItem(SESSION_KEY);
+}
+</script>
+
+</body>
+</html>
