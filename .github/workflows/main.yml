@@ -1,0 +1,65 @@
+name: Build DARK RESELLER IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install iOS platform
+        run: npm install @capacitor/ios@^7.4.3
+
+      - name: Initialize iOS project
+        run: |
+          npx cap add ios || true
+          npx cap sync ios
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Build iOS app
+        run: |
+          cd ios/App
+          xcodebuild \
+            -project App.xcodeproj \
+            -scheme App \
+            -sdk iphoneos \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Package IPA
+        run: |
+          mkdir -p Payload
+          APP_PATH=$(find ios/App/build/Build/Products/Release-iphoneos -maxdepth 1 -name "*.app" -print -quit)
+          if [ -z "$APP_PATH" ]; then
+            echo "ERROR: iOS app was not built."
+            exit 1
+          fi
+          cp -R "$APP_PATH" Payload/
+          zip -r DARK-RESELLER-unsigned.ipa Payload
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DARK-RESELLER-IPA
+          path: DARK-RESELLER-unsigned.ipa
+          if-no-files-found: error
