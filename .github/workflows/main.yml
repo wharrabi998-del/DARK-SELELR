@@ -6,9 +6,12 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-latest
 
     steps:
       - name: Checkout repository
@@ -18,44 +21,50 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
       - name: Install dependencies
         run: npm install
 
-      - name: Install iOS platform
+      - name: Prepare web app
+        run: |
+          mkdir -p www
+          cp index.html www/index.html
+
+      - name: Install Capacitor iOS
         run: npm install @capacitor/ios@^7.4.3
 
       - name: Initialize iOS project
         run: |
-          npx cap add ios || true
+          if [ ! -d "ios/App" ]; then
+            npx cap add ios
+          fi
           npx cap sync ios
-
-      - name: Install XcodeGen
-        run: brew install xcodegen
 
       - name: Build iOS app
         run: |
-          cd ios/App
           xcodebuild \
-            -project App.xcodeproj \
+            -project ios/App/App.xcodeproj \
             -scheme App \
             -sdk iphoneos \
             -configuration Release \
-            -derivedDataPath build \
+            -derivedDataPath ios/build \
             CODE_SIGNING_ALLOWED=NO \
             build
 
       - name: Package IPA
         run: |
-          mkdir -p Payload
-          APP_PATH=$(find ios/App/build/Build/Products/Release-iphoneos -maxdepth 1 -name "*.app" -print -quit)
+          set -e
+          APP_PATH=$(find ios/build/Build/Products/Release-iphoneos \
+            -maxdepth 1 -name "*.app" -print -quit)
+
           if [ -z "$APP_PATH" ]; then
             echo "ERROR: iOS app was not built."
             exit 1
           fi
+
+          mkdir -p Payload
           cp -R "$APP_PATH" Payload/
-          zip -r DARK-RESELLER-unsigned.ipa Payload
+          zip -qr DARK-RESELLER-unsigned.ipa Payload
 
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
