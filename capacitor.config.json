@@ -1,0 +1,11 @@
+{
+  "appId": "com.darkreseller.app",
+  "appName": "DARK RESELLER",
+  "webDir": ".",
+  "server": {
+    "androidScheme": "https"
+  },
+  "ios": {
+    "contentInset": "automatic"
+  }
+}
